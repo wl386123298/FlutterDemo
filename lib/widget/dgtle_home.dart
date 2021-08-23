@@ -5,15 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/article_detail.dart';
 import 'package:flutter_demo/entity/banner_entity.dart';
 import 'package:flutter_demo/entity/content_entity.dart';
-import 'package:flutter_demo/widget/common_widget.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/iconic_icons.dart';
-import 'package:fluttericon/mfg_labs_icons.dart';
 import 'package:fluttericon/typicons_icons.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:transition/transition.dart';
 
 class DgtleHomePage extends StatefulWidget {
   @override
@@ -53,7 +49,7 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
     _refreshController.loadComplete();
     isHasLoadMore = true;
 
-    print(contentResponse);
+
     List<ContentEntity> contentList = [];
     if (contentResponse?.data?.toString()?.isNotEmpty == true) {
       List<dynamic> items = contentResponse?.data["items"];
@@ -125,7 +121,14 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                   autoplay: true,
                   autoplayDelay: 5000,
                   itemCount: _bannerList.length,
-                  pagination: SwiperPagination(),
+                  pagination: SwiperPagination(
+                    builder: DotSwiperPaginationBuilder(
+                      activeColor: Colors.green,
+                      color: Colors.white70,
+                      activeSize: 7,
+                      size: 5,
+                     )
+                  ),
                   viewportFraction: 0.8,
                   scale: 0.9,
                   itemBuilder: (context, position) {
@@ -170,6 +173,7 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                       child: Container(
                         padding: EdgeInsets.all(10),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
@@ -182,8 +186,9 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                               ],
                             ),
                             const Padding(padding: EdgeInsets.only(top: 10)),
+
                             Text("${(contentEntity?.summary ?? "").isEmpty ? contentEntity?.title ?? "" : contentEntity?.summary ?? ""}",
-                              style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w600)),
+                              style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w400)),
                             const Padding(padding: EdgeInsets.only(top: 10)),
                             showItemImage(contentEntity),
                             const Padding(padding: EdgeInsets.only(top: 10)),
@@ -240,14 +245,14 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
       String coverUrl = contentEntity?.cover?.replaceAll("960", "350");
       return Container(
         width: double.infinity,
-        height: 150,
+        height: 200,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: ProgressiveImage(
             fit: BoxFit.cover,
-            placeholder: const AssetImage("images/icon_loading_image.png"),
-            thumbnail: NetworkImage("$coverUrl"),
-            image: NetworkImage("$coverUrl"),
+            placeholder:  CachedNetworkImageProvider("$coverUrl"),
+            thumbnail: CachedNetworkImageProvider("$coverUrl"),
+            image: CachedNetworkImageProvider("$coverUrl"),
             height: double.infinity,
             width: double.infinity,
           )

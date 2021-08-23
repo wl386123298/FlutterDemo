@@ -38,6 +38,7 @@ dependencies:
   flutter_widget_from_html: 0.6.2
   progressive_image: ^1.0.1
   date_format: 1.0.8
+  keframe: ^2.0.2
 
 dev_dependencies:
   flutter_test:

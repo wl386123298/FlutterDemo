@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/contacts_list.dart';
 import 'package:flutter_demo/find.dart';
-import 'package:flutter_demo/index.dart';
 import 'package:flutter_demo/me.dart';
 import 'package:flutter_demo/widget/dgtle_home.dart';
 import 'package:fluttericon/entypo_icons.dart';

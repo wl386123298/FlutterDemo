@@ -7,6 +7,8 @@ import 'package:flutter_demo/entity/article_detail_content_entity.dart';
 import 'package:flutter_demo/entity/comment_entity.dart';
 import 'package:flutter_demo/gallery_photo_view.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:keframe/frame_separate_widget.dart';
+import 'package:keframe/size_cache_widget.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:transition/transition.dart';
 
@@ -201,60 +203,62 @@ class ArticleDetailPage extends StatelessWidget {
     return FutureBuilder<List<CommentEntity>>(
       builder: (context, snapshot) {
         return snapshot.hasData && snapshot.data?.isNotEmpty == true
-            ? ListView.separated(
-                separatorBuilder: (context, index) {
-                  return Divider(
-                    color: Colors.black12,
-                    indent: 70,
-                  );
-                },
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: ListTile(
-                      dense: true,
-                      leading: SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: CachedNetworkImage(
-                              imageUrl: "${snapshot.data[index]?.author?.avatar_path ?? ""}",
-                              errorWidget: (context, url, error) => Image.network(defaultImageUrl),
-                              fit: BoxFit.cover,
-                            ),
-                          )
+            ? SizeCacheWidget(
+              child: ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return Divider(
+                      color: Colors.black12,
+                      indent: 70,
+                    );
+                  },
+                  itemBuilder: (context, index) {
+                    return FrameSeparateWidget(child: Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: ListTile(
+                        dense: true,
+                        leading: SizedBox(
+                            height: 40,
+                            width: 40,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: CachedNetworkImage(
+                                imageUrl: "${snapshot.data[index]?.author?.avatar_path ?? ""}",
+                                errorWidget: (context, url, error) => Image.network(defaultImageUrl),
+                                fit: BoxFit.cover,
+                              ),
+                            )
 
                           /*CircleAvatar(
-              backgroundImage: NetworkImage("${_commentList[index]?.author?.avatar_path ?? ""}"),
-            ),*/
-                          ),
-                      title: Text(
-                        "${snapshot.data[index]?.author?.username}",
-                        style: TextStyle(color: Color(0xFF888888), fontSize: 12),
+                backgroundImage: NetworkImage("${_commentList[index]?.author?.avatar_path ?? ""}"),
+              ),*/
+                        ),
+                        title: Text(
+                          "${snapshot.data[index]?.author?.username}",
+                          style: TextStyle(color: Color(0xFF888888), fontSize: 12),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(padding: EdgeInsets.only(top: 3)),
+                            Text(
+                              "${snapshot.data[index]?.relativeTime}",
+                              style: TextStyle(color: Colors.black38, fontSize: 10),
+                            ),
+                            Padding(padding: EdgeInsets.only(top: 3)),
+                            Text(
+                              "${snapshot.data[index]?.content ?? ""}",
+                              style: TextStyle(color: Color(0xFF333333), fontSize: 14, fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
                       ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(padding: EdgeInsets.only(top: 3)),
-                          Text(
-                            "${snapshot.data[index]?.relativeTime}",
-                            style: TextStyle(color: Colors.black38, fontSize: 10),
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 3)),
-                          Text(
-                            "${snapshot.data[index]?.content ?? ""}",
-                            style: TextStyle(color: Color(0xFF333333), fontSize: 14, fontWeight: FontWeight.w400),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                itemCount: snapshot.data.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-              )
+                    ), index: snapshot.data[index].aid,);
+                  },
+                  itemCount: snapshot.data.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                ),
+            )
             : Container();
       },
       future: getComment(),
