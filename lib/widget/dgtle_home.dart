@@ -143,17 +143,30 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
           return ValueListenableBuilder<List<ContentEntity>>(valueListenable: _contentValueList, builder:(context, data, child){
               if(data != null && data.isNotEmpty){
                 ContentEntity contentEntity = data[index-1];
-                  return Card(
-                    margin: EdgeInsets.only(top: 10, left: 12, right: 12),
-                    elevation: 0.5,
-                    color: Colors.white,
+                  return Container(
+                    margin: EdgeInsets.only(top: 15, left: 12, right: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 8.0,
+                          spreadRadius: 0,
+                          offset: Offset(1, 1), // shadow direction: bottom right
+                        )
+                      ]
+                    ),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
+                        /*Navigator.push(
                             context,
                             Transition(child: ArticleDetailPage(contentEntity.aid ?? "", contentEntity.type), transitionEffect: TransitionEffect.rightToLeft)
-                                .builder());
+                                .builder());*/
+
+                        Navigator.push(context, CupertinoPageRoute(builder: (context)=>ArticleDetailPage(contentEntity.aid ?? "", contentEntity.type)));
                       },
+
                       child: Container(
                         padding: EdgeInsets.all(10),
                         child: Column(
@@ -161,48 +174,47 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                             Row(
                               children: [
                                 SizedBox(
-                                  child: CircleAvatar(
-                                    backgroundImage: NetworkImage("${contentEntity.author.avatar_path}"),
-                                  ),
+                                  child: CircleAvatar(backgroundImage: NetworkImage("${contentEntity.author.avatar_path}")),
                                   height: 30,
                                 ),
-                                const Padding(padding: EdgeInsets.only(left: 7)),
-                                Text("${contentEntity.author?.username ?? "佚名"}")
+                                const Padding(padding: EdgeInsets.only(left: 3)),
+                                Text("${contentEntity.author?.username ?? "佚名"}", style: TextStyle(fontSize: 14, color: Colors.black),)
                               ],
                             ),
                             const Padding(padding: EdgeInsets.only(top: 10)),
-                            Text("${(contentEntity?.summary ?? "").isEmpty ? contentEntity?.title ?? "" : contentEntity?.summary ?? ""}"),
+                            Text("${(contentEntity?.summary ?? "").isEmpty ? contentEntity?.title ?? "" : contentEntity?.summary ?? ""}",
+                              style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w600)),
                             const Padding(padding: EdgeInsets.only(top: 10)),
                             showItemImage(contentEntity),
-                            const Padding(padding: EdgeInsets.only(top: 5)),
+                            const Padding(padding: EdgeInsets.only(top: 10)),
                             Row(
                               children: [
                                 const Icon(
                                   Typicons.thumbs_up,
-                                  size: 15,
+                                  size: 14,
                                   color: Colors.black26,
                                 ),
                                 const Padding(padding: EdgeInsets.only(left: 3)),
                                 Text(
                                   "${contentEntity?.liketimes ?? "1"}",
-                                  style: TextStyle(color: Colors.black26, fontSize: 13),
+                                  style: TextStyle(color: Colors.black26, fontSize: 12),
                                 ),
                                 const Padding(padding: EdgeInsets.only(left: 7)),
                                 const Icon(
                                   Iconic.comment,
-                                  size: 15,
+                                  size: 14,
                                   color: Colors.black26,
                                 ),
                                 const Padding(padding: EdgeInsets.only(left: 3)),
                                 Expanded(
                                   child: Text(
                                     "${contentEntity?.commentnum ?? "1"}",
-                                    style: TextStyle(color: Colors.black26, fontSize: 13),
+                                    style: TextStyle(color: Colors.black26, fontSize: 12),
                                   ),
                                 ),
                                 Text(
                                   "${contentEntity.relativeTime ?? "1分钟前"}",
-                                  style: TextStyle(color: Colors.black26, fontSize: 13),
+                                  style: TextStyle(color: Colors.black26, fontSize: 12),
                                 )
                               ],
                             )
@@ -258,7 +270,7 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
               fit: StackFit.expand,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(3),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
                     imageUrl: "${contentEntity?.imgs_url[position]?.replaceAll("600", "200")}",
@@ -270,11 +282,11 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                       ? Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                              color: Colors.black26,
-                              borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10))),
+                              color: Colors.black38,
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(3), bottomRight: Radius.circular(3))),
                           child: Text(
                             "${contentEntity.imgs_url?.length}",
-                            style: TextStyle(color: Colors.white, fontSize: 14),
+                            style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         )
                       : Container(),

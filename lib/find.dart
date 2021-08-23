@@ -24,9 +24,10 @@ class _FindPageState extends State<FindPage> {
       appBar: commonAppBar(
           title: "发现",
           bottom: TabBar(
+              indicatorColor: Colors.amber,
+              indicatorWeight: 3,
               isScrollable: true,
-              tabs: _tabList
-                  .map((e) => Tab(
+              tabs: _tabList.map((e) => Tab(
                 text: "$e",
               ))
                   .toList())),

@@ -5,7 +5,7 @@ import 'package:flutter_demo/home.dart';
 
 void main() {
   runApp(MyApp());
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.white));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   GestureBinding.instance.resamplingEnabled = true;
 
 }

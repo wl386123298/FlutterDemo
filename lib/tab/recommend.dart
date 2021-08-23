@@ -88,7 +88,7 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
                   child: Stack(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(5),
                         child: ProgressiveImage(
                           fit: BoxFit.cover,
                           placeholder: NetworkImage("${_wordList[index]?.cover}"),
@@ -99,7 +99,7 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
                         ),
                       ),
                       Container(
-                        decoration: BoxDecoration(color: Colors.black45, borderRadius: BorderRadius.circular(10)),
+                        decoration: BoxDecoration(color: Colors.black45, borderRadius: BorderRadius.circular(5)),
                       ),
 
                       renderDate(_wordList[index].push_at),
@@ -108,16 +108,16 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
                           child: Padding(
                             child: Text(
                               "${_wordList[index]?.content}",
-                              style: TextStyle(color: Colors.white, fontSize: 14.5),
+                              style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
                             ),
                             padding: EdgeInsets.symmetric(horizontal: 20),
                           )),
                       Positioned(
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                           child: Text(
                             "——${_wordList[index]?.from}",
-                            style: TextStyle(color: Colors.white, fontSize: 13),
+                            style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ),
                         right: 0,
@@ -140,9 +140,9 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
 
     return Padding(padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10) ,
       child: Row(children: [
-        Text("$day", style: TextStyle(color: Colors.white, fontSize: 32),),
+        Text("$day", style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.w500),),
         Padding(padding: EdgeInsets.only(left: 3)),
-        Text("$month\n$year",style: TextStyle(color: Colors.white70, fontSize: 13),)
+        Text("$month\n$year",style: TextStyle(color: Colors.white70, fontSize: 13,fontWeight: FontWeight.w500),)
     ],),);
   }
 

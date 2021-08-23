@@ -82,38 +82,51 @@ class _FindPageState extends State<ContactListPage> {
         },
         child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 0.82,
+          childAspectRatio: 0.6,
           mainAxisSpacing: 15,
           crossAxisSpacing: 10
         ), itemBuilder: (context, index){
           var imageUrl = _idleList[index]?.cover?.replaceAll("600", "300");
            return Container(
-             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+             decoration: BoxDecoration(color: Colors.white,
+                 boxShadow: [
+                   BoxShadow(
+                     color: Colors.black12,
+                     blurRadius: 6.0,
+                     spreadRadius: 0,
+                     offset: Offset(1, 1), // shadow direction: bottom right
+                   )
+                 ],
+                 borderRadius: BorderRadius.circular(5)),
              padding: EdgeInsets.only(bottom: 10),
              child: Column(
                mainAxisSize: MainAxisSize.min,
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
                  ClipRRect(
-                   borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                   borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
                    child: ProgressiveImage(
                      fit: BoxFit.cover,
                      placeholder: NetworkImage("$imageUrl"),
                      thumbnail: NetworkImage("$imageUrl"),
                      image: NetworkImage("$imageUrl"),
-                     height: 100,
+                     height: 150,
                      width: double.infinity,
                    ),
                  ),
 
+                 const SizedBox(height: 3),
+
                  Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.title}",
                    maxLines: 2,
                    overflow: TextOverflow.ellipsis,
-                   style: TextStyle(color: Colors.black87, fontSize: 15,),) ,),
-                Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("¥${_idleList[index]?.price}",style: TextStyle(color: Colors.red, fontSize: 15),)),
+                   style: TextStyle(color: Colors.black, fontSize: 15,),) ),
+
+
+                Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5), child:Text("¥${_idleList[index]?.price}",style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.w800),)),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.address}",style: TextStyle(color: Colors.black26, fontSize: 12),)),
-                Padding(padding: EdgeInsets.symmetric(horizontal: 7), child: Text("${_idleList[index]?.relativeTime}•${_idleList[index]?.author?.username}",
-                     style: TextStyle(color: Colors.black26, fontSize: 12),
+                Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3), child: Text("${_idleList[index]?.relativeTime}•${_idleList[index]?.author?.username}",
+                     style: TextStyle(color: Colors.black26, fontSize: 11),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,),
 

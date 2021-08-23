@@ -19,7 +19,7 @@ class ArticleDetailPage extends StatelessWidget {
 
   final ValueNotifier<ArticleDetailContentEntity> _detailNotice = ValueNotifier(null);
 
-  ArticleDetailPage(this.id, this.type){
+  ArticleDetailPage(this.id, this.type) {
     getData();
   }
 
@@ -28,7 +28,7 @@ class ArticleDetailPage extends StatelessWidget {
 
     var url = "https://opser.api.dgtle.com/v1/feeds/inst/${id}?expand=is_focus,is_like";
 
-    if ("14" ==type) {
+    if ("14" == type) {
       url = "https://opser.api.dgtle.com/v1/news/detail/${id}?expand=likelist,is_like,is_favourite,like";
     }
 
@@ -48,7 +48,7 @@ class ArticleDetailPage extends StatelessWidget {
     }
   }
 
-  Future<List<CommentEntity>> getComment() async{
+  Future<List<CommentEntity>> getComment() async {
     Dio dio = new Dio();
     Response commentResponse = await dio.get("https://opser.api.dgtle.com/v1/comments/${id}/${type}");
     List<CommentEntity> commentList = [];
@@ -61,7 +61,6 @@ class ArticleDetailPage extends StatelessWidget {
 
     return Future.value(commentList);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -87,30 +86,27 @@ class ArticleDetailPage extends StatelessWidget {
                         ? HtmlWidget(
                             "${data.content}",
                             webView: true,
-                            textStyle: TextStyle(color: Color(0xFF333333), fontSize: 15),
+                            textStyle: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400, height: 1.8),
                             onTapImage: (imageData) {
-                              Navigator.push(
-                                  context,
-                                  Transition(
-                                      child: GalleryPhotoViewWrapper(
-                                    galleryItems: imageData.sources.map((e) => e.url).toList(),
-                                    initialIndex: 0,
-                                    backgroundDecoration: BoxDecoration(color: Colors.black),
-                                  )).builder());
+                              Navigator.push(context, Transition(child: GalleryPhotoViewWrapper(
+                                              galleryItems: imageData.sources.map((e) => e.url).toList(),
+                                              initialIndex: 0,
+                                              backgroundDecoration: BoxDecoration(color: Colors.black)))
+                                      .builder());
                             },
                           )
                         : Container();
                   }),
-              padding: EdgeInsets.all(12),
+              padding: EdgeInsets.only(left: 12, right: 12, bottom: 12),
             ),
             galleryView(),
             Container(
-                child: Text(
-                  "最新评论",
-                  style: TextStyle(color: Color(0xFF333333), fontSize: 15),
-                ),
-                padding: EdgeInsets.all(12)),
-            commentView()
+                child: Text("最新评论", style: TextStyle(color: Color(0xFF222222), fontSize: 16, fontWeight: FontWeight.w500)),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12)),
+            commentView(),
+            Container(
+              height: 20,
+            )
           ],
         ),
       ),
@@ -122,36 +118,29 @@ class ArticleDetailPage extends StatelessWidget {
         valueListenable: _detailNotice,
         builder: (context, data, child) {
           return data != null
-              ? ListTile(
-                  leading: CircleAvatar(backgroundImage: NetworkImage("${data?.author?.avatar_path ?? "$defaultImageUrl"}")),
-                  title: Text(
-                    "${data?.author?.username ?? ""}",
-                    style: TextStyle(color: Colors.black45, fontSize: 14),
-                  ),
-                  subtitle: Text(
-                    "${data?.relativeTime ?? ""}来自${data?.tel_type ?? "小霸王学习机"}",
-                    style: TextStyle(color: Colors.black45, fontSize: 13),
-                  ),
-                  trailing: Container(
-                    height: 30,
-                    width: 60,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: Color(0xFF67abff))),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          CupertinoIcons.add,
-                          color: Color(0xFF67abff),
-                          size: 15,
+              ? Container(
+                  child: ListTile(
+                      leading: CircleAvatar(backgroundImage: NetworkImage("${data?.author?.avatar_path ?? "$defaultImageUrl"}")),
+                      title: Text("${data?.author?.username ?? ""}", style: TextStyle(color: Colors.black45, fontSize: 14)),
+                      subtitle: Text("${data?.relativeTime ?? ""}来自${data?.tel_type ?? "小霸王学习机"}", style: TextStyle(color: Colors.black45, fontSize: 13)),
+                      trailing: Container(
+                        height: 28,
+                        width: 60,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: Color(0xFF67abff))),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              CupertinoIcons.add,
+                              color: Color(0xFF67abff),
+                              size: 14,
+                            ),
+                            Text("关注", style: TextStyle(color: Color(0xFF67abff), fontSize: 12))
+                          ],
                         ),
-                        Text(
-                          "关注",
-                          style: TextStyle(color: Color(0xFF67abff), fontSize: 14),
-                        )
-                      ],
-                    ),
-                  ))
+                      )),
+                )
               : Container();
         });
   }
@@ -182,7 +171,7 @@ class ArticleDetailPage extends StatelessWidget {
                                             )).builder());
                                       },
                                       child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(7),
+                                          borderRadius: BorderRadius.circular(3),
                                           child: ProgressiveImage(
                                             fit: BoxFit.cover,
                                             placeholder: NetworkImage("${data.imgs_url[index]?.path}"),
@@ -209,60 +198,66 @@ class ArticleDetailPage extends StatelessWidget {
   }
 
   Widget commentView() {
-    return FutureBuilder<List<CommentEntity>>(builder: (context , snapshot){
-      return snapshot.hasData&& snapshot.data?.isNotEmpty == true ? ListView.separated(
-        separatorBuilder: (context, index) {
-          return Divider(
-            color: Colors.black12,
-            indent: 70,
-          );
-        },
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: ListTile(
-              leading: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: CachedNetworkImage(
-                      imageUrl: "${snapshot.data[index]?.author?.avatar_path ?? ""}",
-                      errorWidget: (context, url, error) => Image.network(defaultImageUrl),
-                      fit: BoxFit.cover,
-                    ),
-                  )
+    return FutureBuilder<List<CommentEntity>>(
+      builder: (context, snapshot) {
+        return snapshot.hasData && snapshot.data?.isNotEmpty == true
+            ? ListView.separated(
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    color: Colors.black12,
+                    indent: 70,
+                  );
+                },
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: ListTile(
+                      dense: true,
+                      leading: SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: CachedNetworkImage(
+                              imageUrl: "${snapshot.data[index]?.author?.avatar_path ?? ""}",
+                              errorWidget: (context, url, error) => Image.network(defaultImageUrl),
+                              fit: BoxFit.cover,
+                            ),
+                          )
 
-                /*CircleAvatar(
+                          /*CircleAvatar(
               backgroundImage: NetworkImage("${_commentList[index]?.author?.avatar_path ?? ""}"),
             ),*/
-              ),
-              title: Text(
-                "${snapshot.data[index]?.author?.username}",
-                style: TextStyle(color: Color(0xFF666666), fontSize: 14),
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(padding: EdgeInsets.only(top: 3)),
-                  Text(
-                    "${snapshot.data[index]?.relativeTime}",
-                    style: TextStyle(color: Colors.black38, fontSize: 13),
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 5)),
-                  Text(
-                    "${snapshot.data[index]?.content ?? ""}",
-                    style: TextStyle(color: Color(0xFF333333), fontSize: 14),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-        itemCount: snapshot.data.length,
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-      ):Container();
-    }, future: getComment(),);
+                          ),
+                      title: Text(
+                        "${snapshot.data[index]?.author?.username}",
+                        style: TextStyle(color: Color(0xFF888888), fontSize: 12),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(padding: EdgeInsets.only(top: 3)),
+                          Text(
+                            "${snapshot.data[index]?.relativeTime}",
+                            style: TextStyle(color: Colors.black38, fontSize: 10),
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 3)),
+                          Text(
+                            "${snapshot.data[index]?.content ?? ""}",
+                            style: TextStyle(color: Color(0xFF333333), fontSize: 14, fontWeight: FontWeight.w400),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                itemCount: snapshot.data.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+              )
+            : Container();
+      },
+      future: getComment(),
+    );
   }
 }

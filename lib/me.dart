@@ -30,11 +30,11 @@ class _FindPageState extends State<MePage> {
               color: Colors.white,
               padding: EdgeInsets.symmetric(vertical: 40, horizontal: 15),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
+                //crossAxisAlignment: CrossAxisAlignment.baseline,
                 children: [
                   Container(
-                      height: 60,
-                      width: 60,
+                      height: 70,
+                      width: 70,
                       decoration: BoxDecoration(border: Border.all(color: Colors.black12, width: 0.1), borderRadius: BorderRadius.circular(5)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
@@ -50,7 +50,7 @@ class _FindPageState extends State<MePage> {
                     children: [
                       Text(
                         "wliang",
-                        style: TextStyle(color: Colors.black, fontSize: 18),
+                        style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
                       ),
                       Padding(padding: EdgeInsets.only(top: 5)),
                       Row(
@@ -58,7 +58,7 @@ class _FindPageState extends State<MePage> {
                         children: [
                           Text(
                             "微信号：wvitas",
-                            style: TextStyle(color: Colors.black45, fontSize: 15),
+                            style: TextStyle(color: Colors.black54, fontSize: 14),
                           ),
                           Expanded(
                             child: Container(
@@ -66,7 +66,7 @@ class _FindPageState extends State<MePage> {
                                 child: Icon(
                                   CupertinoIcons.qrcode,
                                   color: Colors.black45,
-                                  size: 18,
+                                  size: 20,
                                 )),
                           ),
                           Padding(padding: EdgeInsets.only(left: 10)),
@@ -77,11 +77,11 @@ class _FindPageState extends State<MePage> {
                         onTap: () {},
                         child: Container(
                           margin: EdgeInsets.only(top: 3),
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                          decoration: BoxDecoration(border: Border.all(color: Colors.black12), borderRadius: BorderRadius.circular(100)),
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                          decoration: BoxDecoration(border: Border.all(color: Colors.black12), borderRadius: BorderRadius.circular(50)),
                           child: Text(
                             "+状态",
-                            style: TextStyle(color: Colors.black45),
+                            style: TextStyle(color: Colors.black45, fontSize: 12),
                           ),
                         ),
                       )
@@ -101,17 +101,13 @@ class _FindPageState extends State<MePage> {
                     alignment: Alignment.centerLeft,
                     child: FlatButton.icon(
                         onPressed: () {
-                          Navigator.push(context, Transition(child: PaymentInfoPage(),
-                          transitionEffect: TransitionEffect.rightToLeft).builder());
+                          Navigator.push(context, Transition(child: PaymentInfoPage(), transitionEffect: TransitionEffect.rightToLeft).builder());
                         },
                         icon: Image.asset(
                           "images/wechatpayline.png",
                           height: 25,
                         ),
-                        label: Text(
-                          "支付",
-                          style: TextStyle(color: Color(0xFF3333333)),
-                        )),
+                        label: Text("支付", style: TextStyle(color: Color(0xFF3333333)))),
                   )),
                   Icon(CupertinoIcons.chevron_right, size: 16, color: Colors.black45)
                 ],

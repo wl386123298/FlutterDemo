@@ -46,7 +46,6 @@ class _PaymentInfoPageState extends State<PaymentInfoPage> {
                 color: Color(0xFF2CAD66),
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
                 children: [
                   Expanded(
                       child: Column(

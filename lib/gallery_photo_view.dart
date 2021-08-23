@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:photo_view/photo_view.dart';
@@ -74,7 +75,21 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
                   decoration: null,
                 ),
               ),
-            )
+            ),
+
+            Positioned(child: InkWell(
+              onTap: (){
+                Navigator.pop(context);
+              },
+              child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius:  BorderRadius.circular(60),
+                    color: Colors.white24
+                  ),
+                  child: Icon(CupertinoIcons.clear, color: Colors.white70, size: 20,)),
+            ), top: 60, left: 20)
           ],
         ),
       ),
