@@ -1,1 +1,1 @@
-# 这是一个模仿数字微博的Flutter App 
+# 这是一个模仿数字尾巴的Flutter App 
