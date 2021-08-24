@@ -39,9 +39,8 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
     if (bannerResponse?.data?.toString()?.isNotEmpty == true) {
       List<dynamic> list = bannerResponse?.data;
 
-      list.forEach((element) {
-        bannerList.add(BannerEntity.fromJson(element));
-      });
+      bannerList.clear();
+      bannerList.addAll(list.map((e) => BannerEntity.fromJson(e)).toList());
     }
 
     Response contentResponse = await dio.get("https://opser.api.dgtle.com/v2/app/home?page=$page");

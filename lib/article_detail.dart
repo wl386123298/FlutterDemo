@@ -123,8 +123,8 @@ class ArticleDetailPage extends StatelessWidget {
               ? Container(
                   child: ListTile(
                       leading: CircleAvatar(backgroundImage: NetworkImage("${data?.author?.avatar_path ?? "$defaultImageUrl"}")),
-                      title: Text("${data?.author?.username ?? ""}", style: TextStyle(color: Colors.black45, fontSize: 14)),
-                      subtitle: Text("${data?.relativeTime ?? ""}来自${data?.tel_type ?? "小霸王学习机"}", style: TextStyle(color: Colors.black45, fontSize: 13)),
+                      title: Text("${data?.author?.username ?? ""}", style: TextStyle(color: Colors.black87, fontSize: 14)),
+                      subtitle: Text("${data?.relativeTime ?? ""}来自${data?.tel_type ?? "小霸王学习机"}", style: TextStyle(color: Colors.black45, fontSize: 10)),
                       trailing: Container(
                         height: 28,
                         width: 60,
@@ -247,7 +247,7 @@ class ArticleDetailPage extends StatelessWidget {
                             Padding(padding: EdgeInsets.only(top: 3)),
                             Text(
                               "${snapshot.data[index]?.content ?? ""}",
-                              style: TextStyle(color: Color(0xFF333333), fontSize: 14, fontWeight: FontWeight.w400),
+                              style: TextStyle(color: Color(0xFF333333), fontSize: 14, fontWeight: FontWeight.w500),
                             )
                           ],
                         ),
