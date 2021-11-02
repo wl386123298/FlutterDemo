@@ -16,14 +16,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>  {
   int _currentIndex = 0;
-  var _pageList = [DgtleHomePage(), ContactListPage(), FindPage(key: PageStorageKey("find"),), MePage()];
+  var _pageList = [DgtleHomePage(), IdleListPage(), FindPage(key: PageStorageKey("find"),), MePage()];
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        unselectedIconTheme: IconThemeData(color: Colors.black26),
+        unselectedIconTheme: IconThemeData(color: Colors.black54),
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         onTap: (value) {
@@ -33,11 +33,14 @@ class _HomePageState extends State<HomePage>  {
           });
         },
         fixedColor: Colors.green,
+        selectedFontSize: 12,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
+        unselectedFontSize: 12,
         items: [
-          BottomNavigationBarItem(icon: Icon(MfgLabs.comment), label: "首页"),
-          BottomNavigationBarItem(icon: Icon(Typicons.contacts), label: "闲置"),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: "首页"),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.shopping_cart), label: "闲置"),
           BottomNavigationBarItem(icon: Icon(CupertinoIcons.compass), label: "发现"),
-          BottomNavigationBarItem(icon: Icon(Entypo.user), label: "我")
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_solid), label: "我")
         ],
       ),
       body: LazyIndexedStack(

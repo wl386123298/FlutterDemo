@@ -1,16 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_demo/entity/idle_entity.dart';
+import 'package:flutter_demo/idle_detail_page.dart';
 import 'package:flutter_demo/widget/common_widget.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:transition/transition.dart';
 
-class ContactListPage extends StatefulWidget {
+class IdleListPage extends StatefulWidget {
   @override
   _FindPageState createState() => _FindPageState();
 }
 
-class _FindPageState extends State<ContactListPage> {
+class _FindPageState extends State<IdleListPage> {
   RefreshController _refreshController = new RefreshController(initialRefresh: true);
   int page = 1;
   bool isHasLoadMore = true;
@@ -68,7 +71,7 @@ class _FindPageState extends State<ContactListPage> {
       body: SmartRefresher(
         enablePullUp: enablePullUp,
         controller: _refreshController,
-        header: MaterialClassicHeader(color: Colors.amber,),
+        header: MaterialClassicHeader(color: Colors.amber),
         onLoading: (){
           if (isHasLoadMore) {
             isHasLoadMore = false;
@@ -86,7 +89,7 @@ class _FindPageState extends State<ContactListPage> {
           mainAxisSpacing: 15,
           crossAxisSpacing: 10
         ), itemBuilder: (context, index){
-          var imageUrl = _idleList[index]?.cover?.replaceAll("600", "300");
+          var imageUrl = _idleList[index]?.cover;
            return Container(
              decoration: BoxDecoration(color: Colors.white,
                  boxShadow: [
@@ -99,38 +102,44 @@ class _FindPageState extends State<ContactListPage> {
                  ],
                  borderRadius: BorderRadius.circular(5)),
              padding: EdgeInsets.only(bottom: 10),
-             child: Column(
-               mainAxisSize: MainAxisSize.min,
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 ClipRRect(
-                   borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
-                   child: ProgressiveImage(
-                     fit: BoxFit.cover,
-                     placeholder: NetworkImage("$imageUrl"),
-                     thumbnail: NetworkImage("$imageUrl"),
-                     image: NetworkImage("$imageUrl"),
-                     height: 150,
-                     width: double.infinity,
+             child: InkWell(
+               onTap: (){
+                 Navigator.push(context, Transition(child: IdleDetailPage(id: "${_idleList[index]?.id}", title: "${_idleList[index]?.title}" ,), transitionEffect: TransitionEffect.RIGHT_TO_LEFT));
+               },
+               child: Column(
+                 mainAxisSize: MainAxisSize.min,
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   ClipRRect(
+                     borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
+                     child: ProgressiveImage(
+                       fit: BoxFit.cover,
+                       placeholder: NetworkImage("$imageUrl"),
+                       thumbnail: NetworkImage("$imageUrl"),
+                       image: NetworkImage("$imageUrl"),
+                       height: 150,
+                       width: double.infinity,
+                     ),
+
                    ),
-                 ),
 
-                 const SizedBox(height: 3),
+                   const SizedBox(height: 3),
 
-                 Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.title}",
-                   maxLines: 2,
-                   overflow: TextOverflow.ellipsis,
-                   style: TextStyle(color: Colors.black, fontSize: 15,),) ),
+                   Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.title}",
+                     maxLines: 2,
+                     overflow: TextOverflow.ellipsis,
+                     style: TextStyle(color: Colors.black, fontSize: 14,),) ),
 
 
-                Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5), child:Text("¥${_idleList[index]?.price}",style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.w800),)),
-                Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.address}",style: TextStyle(color: Colors.black26, fontSize: 12),)),
-                Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3), child: Text("${_idleList[index]?.relativeTime}•${_idleList[index]?.author?.username}",
-                     style: TextStyle(color: Colors.black26, fontSize: 11),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5), child:Text("¥${_idleList[index]?.price}",style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.w600),)),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.address}",style: TextStyle(color: Colors.black87, fontSize: 12),)),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3), child: Text("${_idleList[index]?.relativeTime}•${_idleList[index]?.author?.username}",
+                       style: TextStyle(color: Colors.black38, fontSize: 11),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,),
 
           )],
+               ),
              ),
            );
         }, itemCount: _idleList.length, padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),),

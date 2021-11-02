@@ -101,7 +101,7 @@ class _FindPageState extends State<MePage> {
                     alignment: Alignment.centerLeft,
                     child: FlatButton.icon(
                         onPressed: () {
-                          Navigator.push(context, Transition(child: PaymentInfoPage(), transitionEffect: TransitionEffect.rightToLeft).builder());
+                          Navigator.push(context, Transition(child: PaymentInfoPage(), transitionEffect: TransitionEffect.RIGHT_TO_LEFT));
                         },
                         icon: Image.asset(
                           "images/wechatpayline.png",

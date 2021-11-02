@@ -84,20 +84,18 @@ class ArticleDetailPage extends StatelessWidget {
               child: ValueListenableBuilder<ArticleDetailContentEntity>(
                   valueListenable: _detailNotice,
                   builder: (context, data, widget) {
-                    return data != null
-                        ? HtmlWidget(
+                    return data != null ? HtmlWidget(
                             "${data.content}",
-                            webView: true,
-                            textStyle: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400, height: 1.8),
+                            textStyle: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400, height: 1.6),
                             onTapImage: (imageData) {
-                              Navigator.push(context, Transition(child: GalleryPhotoViewWrapper(
+                              Navigator.push(
+                                  context,
+                                  Transition(child: GalleryPhotoViewWrapper(
                                               galleryItems: imageData.sources.map((e) => e.url).toList(),
                                               initialIndex: 0,
-                                              backgroundDecoration: BoxDecoration(color: Colors.black)))
-                                      .builder());
+                                              backgroundDecoration: BoxDecoration(color: Colors.black))));
                             },
-                          )
-                        : Container();
+                          ) : Container();
                   }),
               padding: EdgeInsets.only(left: 12, right: 12, bottom: 12),
             ),
@@ -170,7 +168,7 @@ class ArticleDetailPage extends StatelessWidget {
                                               galleryItems: data.imgs_url?.map((e) => e.path)?.toList(),
                                               initialIndex: index,
                                               backgroundDecoration: BoxDecoration(color: Colors.black),
-                                            )).builder());
+                                            )));
                                       },
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.circular(3),
@@ -204,7 +202,7 @@ class ArticleDetailPage extends StatelessWidget {
       builder: (context, snapshot) {
         return snapshot.hasData && snapshot.data?.isNotEmpty == true
             ? SizeCacheWidget(
-              child: ListView.separated(
+                child: ListView.separated(
                   separatorBuilder: (context, index) {
                     return Divider(
                       color: Colors.black12,
@@ -212,53 +210,46 @@ class ArticleDetailPage extends StatelessWidget {
                     );
                   },
                   itemBuilder: (context, index) {
-                    return FrameSeparateWidget(child: Container(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: ListTile(
-                        dense: true,
-                        leading: SizedBox(
-                            height: 40,
-                            width: 40,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: CachedNetworkImage(
-                                imageUrl: "${snapshot.data[index]?.author?.avatar_path ?? ""}",
-                                errorWidget: (context, url, error) => Image.network(defaultImageUrl),
-                                fit: BoxFit.cover,
-                              ),
-                            )
+                    return FrameSeparateWidget(
+                      child: Container(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: ListTile(
+                          dense: true,
+                          leading: SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: CachedNetworkImage(
+                                    imageUrl: "${snapshot.data[index]?.author?.avatar_path ?? ""}",
+                                    errorWidget: (context, url, error) => Image.network(defaultImageUrl),
+                                    fit: BoxFit.cover),
+                              )
 
-                          /*CircleAvatar(
+                              /*CircleAvatar(
                 backgroundImage: NetworkImage("${_commentList[index]?.author?.avatar_path ?? ""}"),
               ),*/
-                        ),
-                        title: Text(
-                          "${snapshot.data[index]?.author?.username}",
-                          style: TextStyle(color: Color(0xFF888888), fontSize: 12),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(padding: EdgeInsets.only(top: 3)),
-                            Text(
-                              "${snapshot.data[index]?.relativeTime}",
-                              style: TextStyle(color: Colors.black38, fontSize: 10),
-                            ),
-                            Padding(padding: EdgeInsets.only(top: 3)),
-                            Text(
-                              "${snapshot.data[index]?.content ?? ""}",
-                              style: TextStyle(color: Color(0xFF333333), fontSize: 14, fontWeight: FontWeight.w500),
-                            )
-                          ],
+                              ),
+                          title: Text("${snapshot.data[index]?.author?.username}", style: TextStyle(color: Color(0xFF888888), fontSize: 12)),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(padding: EdgeInsets.only(top: 3)),
+                              Text("${snapshot.data[index]?.relativeTime}", style: TextStyle(color: Colors.black38, fontSize: 10)),
+                              Padding(padding: EdgeInsets.only(top: 3)),
+                              Text("${snapshot.data[index]?.content ?? ""}", style: TextStyle(color: Color(0xFF333333), fontSize: 14, fontWeight: FontWeight.w400))
+                            ],
+                          ),
                         ),
                       ),
-                    ), index: snapshot.data[index].aid,);
+                      index: snapshot.data[index].aid,
+                    );
                   },
                   itemCount: snapshot.data.length,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                 ),
-            )
+              )
             : Container();
       },
       future: getComment(),
