@@ -30,9 +30,14 @@ class _PaymentInfoPageState extends State<PaymentInfoPage> {
     return Scaffold(
       appBar: commonAppBar(
           title: "支付",
-          leading: Icon(
-            CupertinoIcons.back,
-            color: Colors.black54,
+          leading: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(
+              CupertinoIcons.back,
+              color: Colors.black87,
+            ),
           )),
       body: Container(
         child: SingleChildScrollView(

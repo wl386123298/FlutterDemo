@@ -69,11 +69,13 @@ class ArticleDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.4,
-        leading: Container(
-          child: Image.asset("images/icon_dgtle.png"),
-          padding: EdgeInsets.only(left: 10),
+        leading: InkWell(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back_ios_rounded , size: 18 , color: Colors.black87,),
+          //padding: EdgeInsets.only(left: 10),
         ),
-        leadingWidth: 110,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -86,7 +88,7 @@ class ArticleDetailPage extends StatelessWidget {
                   builder: (context, data, widget) {
                     return data != null ? HtmlWidget(
                             "${data.content}",
-                            textStyle: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400, height: 1.6),
+                            textStyle: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400, height: 1.6),
                             onTapImage: (imageData) {
                               Navigator.push(
                                   context,
@@ -97,7 +99,7 @@ class ArticleDetailPage extends StatelessWidget {
                             },
                           ) : Container();
                   }),
-              padding: EdgeInsets.only(left: 12, right: 12, bottom: 12),
+              padding: EdgeInsets.only(left: 15, right: 15, bottom: 12),
             ),
             galleryView(),
             Container(
@@ -235,9 +237,9 @@ class ArticleDetailPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(padding: EdgeInsets.only(top: 3)),
-                              Text("${snapshot.data[index]?.relativeTime}", style: TextStyle(color: Colors.black38, fontSize: 10)),
+                              Text("${snapshot.data[index]?.relativeTime}", style: TextStyle(color: Colors.black54, fontSize: 10)),
                               Padding(padding: EdgeInsets.only(top: 3)),
-                              Text("${snapshot.data[index]?.content ?? ""}", style: TextStyle(color: Color(0xFF333333), fontSize: 14, fontWeight: FontWeight.w400))
+                              Text("${snapshot.data[index]?.content ?? ""}", style: TextStyle(color: Colors.black , fontSize: 14, fontWeight: FontWeight.w400))
                             ],
                           ),
                         ),

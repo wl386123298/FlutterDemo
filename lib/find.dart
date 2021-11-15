@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/home.dart';
-import 'package:flutter_demo/tab/hot.dart';
+import 'package:flutter_demo/pic_list_page.dart';
 import 'package:flutter_demo/tab/new.dart';
 import 'package:flutter_demo/tab/recommend.dart';
 import 'package:flutter_demo/widget/common_widget.dart';
@@ -14,7 +13,7 @@ class FindPage extends StatefulWidget {
 
 class _FindPageState extends State<FindPage> {
   var _tabList = ["一言", "热门", "最新"];
-  List<Widget> _tabViewList = [RecommendPage(), HotPage(),NewPage(key: PageStorageKey("new"),)];
+  List<Widget> _tabViewList = [RecommendPage(), PicListPage() ,NewPage(key: PageStorageKey("new"),)];
 
   PageStorageBucket _bucket = PageStorageBucket();
 
@@ -24,14 +23,19 @@ class _FindPageState extends State<FindPage> {
       appBar: commonAppBar(
           title: "发现",
           bottom: TabBar(
-              indicatorColor: Colors.amber,
+              labelStyle: TextStyle(fontSize: 15 , fontWeight: FontWeight.w500),
+              unselectedLabelColor: Colors.black87,
+              labelColor: Colors.amber.shade900,
+              indicatorColor: Colors.amber.shade900,
               indicatorWeight: 3,
               isScrollable: true,
+              automaticIndicatorColorAdjustment: true,
+              indicatorSize: TabBarIndicatorSize.label,
               tabs: _tabList.map((e) => Tab(
                 text: "$e",
-              ))
-                  .toList())),
+              )).toList())),
       body: PageStorage(bucket: _bucket, child: TabBarView(children: _tabViewList))
     ));
   }
+  
 }

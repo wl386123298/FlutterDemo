@@ -187,38 +187,38 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                             const Padding(padding: EdgeInsets.only(top: 10)),
 
                             Text("${(contentEntity?.summary ?? "").isEmpty ? contentEntity?.title ?? "" : contentEntity?.summary ?? ""}",
-                              style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w400)),
+                              style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w400)),
                             const Padding(padding: EdgeInsets.only(top: 10)),
                             showItemImage(contentEntity),
                             const Padding(padding: EdgeInsets.only(top: 10)),
                             Row(
                               children: [
                                 const Icon(
-                                  Typicons.thumbs_up,
+                                  CupertinoIcons.hand_thumbsup,
                                   size: 14,
-                                  color: Colors.black26,
+                                  color: Colors.black38,
                                 ),
                                 const Padding(padding: EdgeInsets.only(left: 3)),
                                 Text(
                                   "${contentEntity?.liketimes ?? "1"}",
-                                  style: TextStyle(color: Colors.black26, fontSize: 12),
+                                  style: TextStyle(color: Colors.black38, fontSize: 12),
                                 ),
-                                const Padding(padding: EdgeInsets.only(left: 7)),
+                                const Padding(padding: EdgeInsets.only(left: 10)),
                                 const Icon(
-                                  Iconic.comment,
+                                  CupertinoIcons.bubble_left,
                                   size: 14,
-                                  color: Colors.black26,
+                                  color: Colors.black38,
                                 ),
                                 const Padding(padding: EdgeInsets.only(left: 3)),
                                 Expanded(
                                   child: Text(
                                     "${contentEntity?.commentnum ?? "1"}",
-                                    style: TextStyle(color: Colors.black26, fontSize: 12),
+                                    style: TextStyle(color: Colors.black38, fontSize: 12),
                                   ),
                                 ),
                                 Text(
                                   "${contentEntity.relativeTime ?? "1分钟前"}",
-                                  style: TextStyle(color: Colors.black26, fontSize: 12),
+                                  style: TextStyle(color: Colors.black38, fontSize: 12),
                                 )
                               ],
                             )

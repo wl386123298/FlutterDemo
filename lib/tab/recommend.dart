@@ -108,7 +108,7 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
                           child: Padding(
                             child: Text(
                               "${_wordList[index]?.content}",
-                              style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+                              style: TextStyle(color: Colors.white, fontSize: 16 , fontWeight: FontWeight.w500),
                             ),
                             padding: EdgeInsets.symmetric(horizontal: 20),
                           )),
@@ -117,7 +117,7 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                           child: Text(
                             "——${_wordList[index]?.from}",
-                            style: TextStyle(color: Colors.white, fontSize: 12),
+                            style: TextStyle(color: Colors.white, fontSize: 13),
                           ),
                         ),
                         right: 0,

@@ -55,7 +55,7 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
         child: FutureBuilder(builder: (_ ,data){
           IdleDetailEntity info = data.data;
           if (data.hasData) {
-            return Container(
+          return Container(
             child: ListView(
               padding: EdgeInsets.all( 15),
               children: [
@@ -108,29 +108,37 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
                 ListView(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  children: List.generate(info?.img?.length ?? 0, (index) => InkWell(
-                    onTap: (){
-                      Navigator.push(context,  Transition(
-                          child: GalleryPhotoViewWrapper(
-                            galleryItems: info?.img?.map((e) => e.path)?.toList(),
-                            initialIndex: index,
-                            backgroundDecoration: BoxDecoration(color: Colors.black),
-                          ), transitionEffect: TransitionEffect.SCALE));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: ProgressiveImage(
-                            fit: BoxFit.cover,
-                            placeholder: NetworkImage("${info.img[index]?.path}"),
-                            thumbnail: NetworkImage("${info.img[index]?.path}"),
-                            image: NetworkImage("${info.img[index]?.path}"),
-                            height: 400 ,
-                            width: double.infinity,
-                          )),
-                    ),
-                  )).toList(),
+                  children: List.generate(info?.img?.length ?? 0, (index){
+                    var isHorizontal = (info?.img[index]?.width ?? 0) >= (info?.img[index]?.height??0);
+
+                    var screenWidth =  MediaQuery.of(context).size.width - 30;
+
+                    var height = isHorizontal ? 400 : ((info?.img[index]?.height ??0) * screenWidth)/ (info?.img[index]?.width ?? 0);
+
+                    return InkWell(
+                      onTap: (){
+                        Navigator.push(context,  Transition(
+                            child: GalleryPhotoViewWrapper(
+                              galleryItems: info?.img?.map((e) => e.path)?.toList(),
+                              initialIndex: index,
+                              backgroundDecoration: BoxDecoration(color: Colors.black),
+                            ), transitionEffect: TransitionEffect.SCALE));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: ProgressiveImage(
+                              fit: BoxFit.cover,
+                              placeholder: NetworkImage("${info.img[index]?.path}"),
+                              thumbnail: NetworkImage("${info.img[index]?.path}"),
+                              image: NetworkImage("${info.img[index]?.path}"),
+                              height: height.toDouble() ,
+                              width: double.infinity,
+                            )),
+                      ),
+                    );
+                  }).toList(),
                 )
               ],
             ),

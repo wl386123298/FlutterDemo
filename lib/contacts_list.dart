@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -85,7 +87,7 @@ class _FindPageState extends State<IdleListPage> {
         },
         child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 0.6,
+          childAspectRatio: (MediaQuery.of(context).size.width / 2 - 30) / (150+ 3 + 30 + 15 + 10 + 12 + 6  + 12),
           mainAxisSpacing: 15,
           crossAxisSpacing: 10
         ), itemBuilder: (context, index){
@@ -132,7 +134,7 @@ class _FindPageState extends State<IdleListPage> {
 
 
                   Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5), child:Text("¥${_idleList[index]?.price}",style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.w600),)),
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.address}",style: TextStyle(color: Colors.black87, fontSize: 12),)),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.address}",style: TextStyle(color: Colors.black87, fontSize: 11),)),
                   Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3), child: Text("${_idleList[index]?.relativeTime}•${_idleList[index]?.author?.username}",
                        style: TextStyle(color: Colors.black38, fontSize: 11),
                         maxLines: 1,
