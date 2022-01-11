@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/pic_list_page.dart';
-import 'package:flutter_demo/tab/new.dart';
 import 'package:flutter_demo/tab/recommend.dart';
 import 'package:flutter_demo/widget/common_widget.dart';
 
@@ -12,8 +11,8 @@ class FindPage extends StatefulWidget {
 }
 
 class _FindPageState extends State<FindPage> {
-  var _tabList = ["一言", "热门", "最新"];
-  List<Widget> _tabViewList = [RecommendPage(), PicListPage() ,NewPage(key: PageStorageKey("new"),)];
+  var _tabList = ["一言", "精选", "最新"];
+  List<Widget> _tabViewList = [RecommendPage(), PicListPage(key:PageStorageKey("hot") ,) ,PicListPage(key: PageStorageKey("new"), status: -1,)];
 
   PageStorageBucket _bucket = PageStorageBucket();
 

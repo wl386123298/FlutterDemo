@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage>  {
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         onTap: (value) {
-          print(value);
           setState(() {
             _currentIndex = value;
           });

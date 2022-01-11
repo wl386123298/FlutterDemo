@@ -187,7 +187,7 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                             const Padding(padding: EdgeInsets.only(top: 10)),
 
                             Text("${(contentEntity?.summary ?? "").isEmpty ? contentEntity?.title ?? "" : contentEntity?.summary ?? ""}",
-                              style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w400)),
+                              style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w400)),
                             const Padding(padding: EdgeInsets.only(top: 10)),
                             showItemImage(contentEntity),
                             const Padding(padding: EdgeInsets.only(top: 10)),

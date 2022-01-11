@@ -83,7 +83,7 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
             child: ListView.builder(itemBuilder: (context, index) {
                 return Container(
                   width: double.infinity,
-                  height: 180,
+                  height: 160,
                   margin: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   child: Stack(
                     children: [
@@ -108,7 +108,7 @@ class _RecommendPageState extends State<RecommendPage> with AutomaticKeepAliveCl
                           child: Padding(
                             child: Text(
                               "${_wordList[index]?.content}",
-                              style: TextStyle(color: Colors.white, fontSize: 16 , fontWeight: FontWeight.w500),
+                              style: TextStyle(color: Colors.white, fontSize: 15 , fontWeight: FontWeight.w500),
                             ),
                             padding: EdgeInsets.symmetric(horizontal: 20),
                           )),
