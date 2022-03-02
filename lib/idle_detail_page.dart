@@ -44,11 +44,12 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: InkWell(
           onTap: ()=> Navigator.pop(context),
           child: Icon(Icons.arrow_back_rounded , size: 20, color: Colors.black87,),
         ),
-        title: Text("${widget.title}"),
+        title: Text("闲置"),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -67,8 +68,8 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
                     Expanded(child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("${info?.author?.username}",style: TextStyle(fontSize: 15, color: Colors.black87)),
-                        const SizedBox(height: 5,),
+                        Text("${info?.author?.username}",style: TextStyle(fontSize: 14, color: Colors.black87)),
+                        const SizedBox(height: 8,),
                         Text("${info?.relativeTime}" ,style: TextStyle(fontSize: 12, color: Colors.black54),),
                       ],
                     )),
@@ -76,18 +77,18 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("¥${info?.price}", style: TextStyle(fontSize: 15, color: Colors.red, fontWeight: FontWeight.w500),),
+                        Text("¥${info?.price}", style: TextStyle(fontSize: 17, color: Colors.red, fontWeight: FontWeight.w600),),
                         const SizedBox(height: 5,),
                         Container(
                           //padding: EdgeInsets.symmetric(horizontal: 10,  vertical: 5),
                           height: 30 ,
-                          width: 60,
+                          width: 70,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: Colors.blueAccent,
                             borderRadius: BorderRadius.circular(40)
                           ),
-                          child: Text("联系他", style: TextStyle(color: Colors.white, fontSize: 13),),
+                          child: Text("联系他", style: TextStyle(color: Colors.white, fontSize: 12),),
                         )
                       ],
                     ),
@@ -96,13 +97,15 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
 
                 const SizedBox(height: 10,),
 
-                Text("成色：${info.quality <= 2 ? "几乎全新": info?.quality == 3 ? "非常好" : "一般"}", style: TextStyle(fontSize: 13, color: Colors.black38),),
-                Text("所在地：${info?.address}", style: TextStyle(fontSize: 13, color: Colors.black38),),
-                Text("运费：${info?.freight??'无'}", style: TextStyle(fontSize: 13, color: Colors.black38),),
+                Text("成色：${info.quality <= 2 ? "几乎全新": info?.quality == 3 ? "非常好" : "一般"}", style: TextStyle(fontSize: 12, color: Colors.black38),),
+                const SizedBox(height: 2),
+                Text("所在地：${info?.address}", style: TextStyle(fontSize: 12, color: Colors.black38),),
+                const SizedBox(height: 2),
+                Text("运费：${info?.freight??'无'}", style: TextStyle(fontSize: 12, color: Colors.black38),),
 
                 const SizedBox(height: 10),
 
-                Text("${info?.content??'无'}", style: TextStyle(fontSize: 16, color: Colors.black87),),
+                Text("${info?.content??'无'}", style: TextStyle(fontSize: 17, color: Colors.black87 , height: 1.5),),
 
                 const SizedBox(height: 15,),
                 ListView(
