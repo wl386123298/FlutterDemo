@@ -42,12 +42,13 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
   
   @override
   Widget build(BuildContext context) {
+    var isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         leading: InkWell(
           onTap: ()=> Navigator.pop(context),
-          child: Icon(Icons.arrow_back_rounded , size: 20, color: Colors.black87,),
+          child: Icon(Icons.arrow_back_rounded , size: 20, color: isDark ? Colors.grey : Colors.black87,),
         ),
         title: Text("闲置"),
       ),
@@ -68,9 +69,9 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
                     Expanded(child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("${info?.author?.username}",style: TextStyle(fontSize: 14, color: Colors.black87)),
+                        Text("${info?.author?.username}",style: TextStyle(fontSize: 14, color: isDark ? Colors.grey : Colors.black87)),
                         const SizedBox(height: 8,),
-                        Text("${info?.relativeTime}" ,style: TextStyle(fontSize: 12, color: Colors.black54),),
+                        Text("${info?.relativeTime}" ,style: TextStyle(fontSize: 12, color: isDark ? Colors.grey : Colors.black54),),
                       ],
                     )),
 
@@ -88,7 +89,7 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
                             color: Colors.blueAccent,
                             borderRadius: BorderRadius.circular(40)
                           ),
-                          child: Text("联系他", style: TextStyle(color: Colors.white, fontSize: 12),),
+                          child: Text("联系他", style: TextStyle(color: isDark ? Colors.white70 : Colors.white, fontSize: 12),),
                         )
                       ],
                     ),
@@ -97,15 +98,15 @@ class _IdleDetailPageState extends State<IdleDetailPage> {
 
                 const SizedBox(height: 10,),
 
-                Text("成色：${info.quality <= 2 ? "几乎全新": info?.quality == 3 ? "非常好" : "一般"}", style: TextStyle(fontSize: 12, color: Colors.black38),),
+                Text("成色：${info.quality <= 2 ? "几乎全新": info?.quality == 3 ? "非常好" : "一般"}", style: TextStyle(fontSize: 12, color:isDark ? Colors.grey :  Colors.black38),),
                 const SizedBox(height: 2),
-                Text("所在地：${info?.address}", style: TextStyle(fontSize: 12, color: Colors.black38),),
+                Text("所在地：${info?.address}", style: TextStyle(fontSize: 12, color:isDark ? Colors.grey : Colors.black38),),
                 const SizedBox(height: 2),
-                Text("运费：${info?.freight??'无'}", style: TextStyle(fontSize: 12, color: Colors.black38),),
+                Text("运费：${info?.freight??'无'}", style: TextStyle(fontSize: 12, color:isDark ? Colors.grey : Colors.black38),),
 
                 const SizedBox(height: 10),
 
-                Text("${info?.content??'无'}", style: TextStyle(fontSize: 17, color: Colors.black87 , height: 1.5),),
+                Text("${info?.content??'无'}", style: TextStyle(fontSize: 17, color: isDark ? Colors.grey : Colors.black87 , height: 1.5),),
 
                 const SizedBox(height: 15,),
                 ListView(

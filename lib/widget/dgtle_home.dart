@@ -6,8 +6,6 @@ import 'package:flutter_demo/article_detail.dart';
 import 'package:flutter_demo/entity/banner_entity.dart';
 import 'package:flutter_demo/entity/content_entity.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:fluttericon/iconic_icons.dart';
-import 'package:fluttericon/typicons_icons.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -77,13 +75,14 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
         appBar: AppBar(
           elevation: 0.4,
           centerTitle: true,
           title: SizedBox(
             height: 30,
-            child: Image.asset("images/icon_dgtle.png"),
+            child: Image.asset("images/icon_dgtle.png", color: isDark ? Colors.grey : Colors.black87,),
           ),
         ),
         body: SmartRefresher(
@@ -113,7 +112,7 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
       itemBuilder: (context, index) {
         if (index == 0) {
           return SizedBox(
-              height: 140,
+              height: 160,
               child: Container(
                 margin: EdgeInsets.only(top: 10),
                 child: Swiper(
@@ -143,16 +142,18 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
               ));
         } else {
           return ValueListenableBuilder<List<ContentEntity>>(valueListenable: _contentValueList, builder:(context, data, child){
-              if(data != null && data.isNotEmpty){
+            bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+            if(data != null && data.isNotEmpty){
                 ContentEntity contentEntity = data[index-1];
                   return Container(
                     margin: EdgeInsets.only(top: 15, left: 12, right: 12),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color:  isDark ? Colors.black : Colors.white,
                       borderRadius: BorderRadius.circular(5),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black12,
+                          color: isDark ? Colors.black87 : Colors.black12,
                           blurRadius: 8.0,
                           spreadRadius: 0,
                           offset: Offset(1, 1), // shadow direction: bottom right
@@ -170,7 +171,7 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                       },
 
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -181,44 +182,44 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                                   height: 30,
                                 ),
                                 const Padding(padding: EdgeInsets.only(left: 3)),
-                                Text("${contentEntity.author?.username ?? "佚名"}", style: TextStyle(fontSize: 14, color: Colors.black),)
+                                Text("${contentEntity.author?.username ?? "佚名"}", style: TextStyle(fontSize: 14, color: isDark? Colors.grey : Colors.black),)
                               ],
                             ),
                             const Padding(padding: EdgeInsets.only(top: 10)),
 
                             Text("${(contentEntity?.summary ?? "").isEmpty ? contentEntity?.title ?? "" : contentEntity?.summary ?? ""}",
-                              style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.w400)),
+                              style: TextStyle(fontSize: 15, color: isDark ? Colors.grey : Colors.black, fontWeight: FontWeight.w400)),
                             const Padding(padding: EdgeInsets.only(top: 10)),
                             showItemImage(contentEntity),
-                            const Padding(padding: EdgeInsets.only(top: 10)),
+                            const Padding(padding: EdgeInsets.only(top: 15)),
                             Row(
                               children: [
-                                const Icon(
+                                Icon(
                                   CupertinoIcons.hand_thumbsup,
                                   size: 14,
-                                  color: Colors.black38,
+                                  color: isDark ? Colors.grey :Colors.black38,
                                 ),
-                                const Padding(padding: EdgeInsets.only(left: 3)),
+                                const Padding(padding: EdgeInsets.only(left: 5)),
                                 Text(
                                   "${contentEntity?.liketimes ?? "1"}",
-                                  style: TextStyle(color: Colors.black38, fontSize: 12),
+                                  style: TextStyle(color: isDark ? Colors.grey  : Colors.black38, fontSize: 12),
                                 ),
-                                const Padding(padding: EdgeInsets.only(left: 10)),
-                                const Icon(
+                                const Padding(padding: EdgeInsets.only(left: 15)),
+                                 Icon(
                                   CupertinoIcons.bubble_left,
                                   size: 14,
-                                  color: Colors.black38,
+                                  color: isDark ? Colors.grey  : Colors.black38,
                                 ),
-                                const Padding(padding: EdgeInsets.only(left: 3)),
+                                const Padding(padding: EdgeInsets.only(left: 5)),
                                 Expanded(
                                   child: Text(
                                     "${contentEntity?.commentnum ?? "1"}",
-                                    style: TextStyle(color: Colors.black38, fontSize: 12),
+                                    style: TextStyle(color: isDark ? Colors.grey  : Colors.black38, fontSize: 12),
                                   ),
                                 ),
                                 Text(
                                   "${contentEntity.relativeTime ?? "1分钟前"}",
-                                  style: TextStyle(color: Colors.black38, fontSize: 12),
+                                  style: TextStyle(color:isDark ? Colors.grey  : Colors.black38, fontSize: 12),
                                 )
                               ],
                             )
@@ -277,7 +278,7 @@ class _DgtleHomePageState extends State<DgtleHomePage> {
                   borderRadius: BorderRadius.circular(3),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: "${contentEntity?.imgs_url[position]?.replaceAll("600", "200")}",
+                    imageUrl: "${contentEntity?.imgs_url[position]?.replaceAll("600", "300")}",
                     errorWidget:(context, url ,error)=>Image.asset("images/icon_loading_image.png") ,
                   ),
                 ),

@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_demo/entity/idle_entity.dart';
 import 'package:flutter_demo/idle_detail_page.dart';
 import 'package:flutter_demo/widget/common_widget.dart';
@@ -67,8 +64,10 @@ class _FindPageState extends State<IdleListPage> {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: isDark ? Colors.black38 : Color(0xFFF5F5F5),
       appBar: commonAppBar(title: "闲置"),
       body: SmartRefresher(
         enablePullUp: enablePullUp,
@@ -93,7 +92,9 @@ class _FindPageState extends State<IdleListPage> {
         ), itemBuilder: (context, index){
           var imageUrl = _idleList[index]?.cover;
            return Container(
-             decoration: BoxDecoration(color: Colors.white,
+             decoration: BoxDecoration(
+
+                 color: isDark ? Colors.black : Colors.white,
                  boxShadow: [
                    BoxShadow(
                      color: Colors.black12,
@@ -130,13 +131,25 @@ class _FindPageState extends State<IdleListPage> {
                    Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.title}",
                      maxLines: 2,
                      overflow: TextOverflow.ellipsis,
-                     style: TextStyle(color: Colors.black, fontSize: 14,),) ),
+                     style: TextStyle(color: isDark ?  Colors.grey : Colors.black, fontSize: 14,),) ),
 
 
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5), child:Text("¥${_idleList[index]?.price}",style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.w600),)),
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.address}",style: TextStyle(color: Colors.black87, fontSize: 11),)),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+                      child: RichText(
+                        text: TextSpan(
+                          text: "¥",
+                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          children: [
+                            TextSpan(
+                              text: "${_idleList[index]?.price}",
+                              style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.w600)
+                            )
+                          ]
+                        ),
+                      )),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 7), child:Text("${_idleList[index]?.address}",style: TextStyle(color: isDark ?  Colors.grey : Colors.black87, fontSize: 11),)),
                   Padding(padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3), child: Text("${_idleList[index]?.relativeTime}•${_idleList[index]?.author?.username}",
-                       style: TextStyle(color: Colors.black38, fontSize: 11),
+                       style: TextStyle(color:isDark ?  Colors.grey : Colors.black38, fontSize: 11),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,),
 

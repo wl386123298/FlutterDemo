@@ -4,9 +4,6 @@ import 'package:flutter_demo/contacts_list.dart';
 import 'package:flutter_demo/find.dart';
 import 'package:flutter_demo/me.dart';
 import 'package:flutter_demo/widget/dgtle_home.dart';
-import 'package:fluttericon/entypo_icons.dart';
-import 'package:fluttericon/mfg_labs_icons.dart';
-import 'package:fluttericon/typicons_icons.dart';
 import 'package:lazy_indexed_stack/lazy_indexed_stack.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,9 +18,11 @@ class _HomePageState extends State<HomePage>  {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        unselectedIconTheme: IconThemeData(color: Colors.black54),
+        backgroundColor: isDark ? Colors.black87 : Colors.white,
+        unselectedIconTheme: IconThemeData(color: isDark ? Colors.grey : Colors.black54),
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         onTap: (value) {
@@ -36,7 +35,7 @@ class _HomePageState extends State<HomePage>  {
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
         unselectedFontSize: 12,
         items: [
-          BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: "首页"),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.home ,), label: "首页"),
           BottomNavigationBarItem(icon: Icon(CupertinoIcons.shopping_cart), label: "闲置"),
           BottomNavigationBarItem(icon: Icon(CupertinoIcons.compass), label: "发现"),
           BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_solid), label: "我")

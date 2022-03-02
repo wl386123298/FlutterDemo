@@ -66,6 +66,8 @@ class ArticleDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.4,
@@ -73,7 +75,7 @@ class ArticleDetailPage extends StatelessWidget {
           onTap: (){
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back_ios_rounded , size: 18 , color: Colors.black87,),
+          child: Icon(Icons.arrow_back_ios_rounded , size: 18 , color: isDark ? Colors.grey :  Colors.black87,),
           //padding: EdgeInsets.only(left: 10),
         ),
       ),
@@ -81,14 +83,14 @@ class ArticleDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            avatarView(),
+            avatarView(isDark),
             Container(
               child: ValueListenableBuilder<ArticleDetailContentEntity>(
                   valueListenable: _detailNotice,
                   builder: (context, data, widget) {
                     return data != null ? HtmlWidget(
                             "${data.content}",
-                            textStyle: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400, height: 1.6),
+                            textStyle: TextStyle(color: isDark ? Colors.grey :  Colors.black, fontSize: 17, fontWeight: FontWeight.w400, height: 1.6),
                             onTapImage: (imageData) {
                               Navigator.push(
                                   context,
@@ -103,9 +105,9 @@ class ArticleDetailPage extends StatelessWidget {
             ),
             galleryView(),
             Container(
-                child: Text("最新评论", style: TextStyle(color: Color(0xFF222222), fontSize: 16, fontWeight: FontWeight.w500)),
+                child: Text("最新评论", style: TextStyle(color: isDark ? Colors.grey :  Color(0xFF222222), fontSize: 16, fontWeight: FontWeight.w500)),
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12)),
-            commentView(),
+            commentView(isDark),
             Container(
               height: 20,
             )
@@ -115,7 +117,7 @@ class ArticleDetailPage extends StatelessWidget {
     );
   }
 
-  Widget avatarView() {
+  Widget avatarView(bool isDark) {
     return ValueListenableBuilder(
         valueListenable: _detailNotice,
         builder: (context, data, child) {
@@ -123,8 +125,8 @@ class ArticleDetailPage extends StatelessWidget {
               ? Container(
                   child: ListTile(
                       leading: CircleAvatar(backgroundImage: NetworkImage("${data?.author?.avatar_path ?? "$defaultImageUrl"}")),
-                      title: Text("${data?.author?.username ?? ""}", style: TextStyle(color: Colors.black87, fontSize: 14)),
-                      subtitle: Text("${data?.relativeTime ?? ""}来自${data?.tel_type ?? "小霸王学习机"}", style: TextStyle(color: Colors.black45, fontSize: 10)),
+                      title: Text("${data?.author?.username ?? ""}", style: TextStyle(color: isDark ? Colors.grey :  Colors.black87, fontSize: 14)),
+                      subtitle: Text("${data?.relativeTime ?? ""}来自${data?.tel_type ?? "小霸王学习机"}", style: TextStyle(color: isDark ? Colors.grey : Colors.black45, fontSize: 10)),
                       trailing: Container(
                         height: 28,
                         width: 60,
@@ -199,7 +201,7 @@ class ArticleDetailPage extends StatelessWidget {
         });
   }
 
-  Widget commentView() {
+  Widget commentView(bool isDark) {
     return FutureBuilder<List<CommentEntity>>(
       builder: (context, snapshot) {
         return snapshot.hasData && snapshot.data?.isNotEmpty == true
@@ -207,7 +209,7 @@ class ArticleDetailPage extends StatelessWidget {
                 child: ListView.separated(
                   separatorBuilder: (context, index) {
                     return Divider(
-                      color: Colors.black12,
+                      color: isDark ? Colors.white10:  Colors.black12,
                       indent: 70,
                     );
                   },
@@ -232,14 +234,14 @@ class ArticleDetailPage extends StatelessWidget {
                 backgroundImage: NetworkImage("${_commentList[index]?.author?.avatar_path ?? ""}"),
               ),*/
                               ),
-                          title: Text("${snapshot.data[index]?.author?.username}", style: TextStyle(color: Color(0xFF888888), fontSize: 12)),
+                          title: Text("${snapshot.data[index]?.author?.username}", style: TextStyle(color: isDark ? Colors.grey : Color(0xFF888888), fontSize: 12)),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(padding: EdgeInsets.only(top: 3)),
-                              Text("${snapshot.data[index]?.relativeTime}", style: TextStyle(color: Colors.black54, fontSize: 10)),
+                              Text("${snapshot.data[index]?.relativeTime}", style: TextStyle(color: isDark ? Colors.grey : Colors.black54, fontSize: 10)),
                               Padding(padding: EdgeInsets.only(top: 3)),
-                              Text("${snapshot.data[index]?.content ?? ""}", style: TextStyle(color: Colors.black , fontSize: 14, fontWeight: FontWeight.w400))
+                              Text("${snapshot.data[index]?.content ?? ""}", style: TextStyle(color: isDark ? Colors.grey : Colors.black , fontSize: 14, fontWeight: FontWeight.w400))
                             ],
                           ),
                         ),
